@@ -1,0 +1,436 @@
+/* Template contract — keep this sizing block intact when re-theming.
+   The game runs in an iframe inside iOS/Android WebViews, where viewport
+   units go stale after the view scrolls. Container percentages keep the game
+   locked to the actual Playabl frame. */
+html,
+body {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	min-width: 0;
+	min-height: 0;
+	overflow: hidden;
+	overscroll-behavior: none;
+	background: #071011;
+	color: #eefbf4;
+	font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+	position: fixed;
+	inset: 0;
+	touch-action: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+[hidden] {
+	display: none !important;
+}
+
+#app {
+	width: 100%;
+	height: 100%;
+	min-width: 0;
+	min-height: 0;
+	overflow: hidden;
+}
+
+canvas,
+.game-surface {
+	box-sizing: border-box;
+	display: block;
+	width: 100%;
+	height: 100%;
+	min-width: 0;
+	min-height: 0;
+	touch-action: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+button,
+[role="button"] {
+	touch-action: manipulation;
+	-webkit-user-select: none;
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
+button,
+select {
+	font: inherit;
+}
+
+.mfn-shell {
+	--panel: rgba(8, 18, 20, 0.78);
+	--panel-strong: rgba(15, 31, 34, 0.92);
+	--line: rgba(102, 255, 123, 0.45);
+	--text-dim: #a9c4c1;
+	box-sizing: border-box;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	min-width: 0;
+	min-height: 0;
+	overflow: hidden;
+	background:
+		linear-gradient(180deg, rgba(2, 8, 9, 0.4), rgba(2, 9, 10, 0.84)),
+		var(--mfn-dash-texture),
+		radial-gradient(circle at 30% 15%, rgba(30, 255, 199, 0.16), transparent 34%),
+		#071011;
+	background-size: cover;
+	background-position: center;
+}
+
+.mfn-workbench {
+	box-sizing: border-box;
+	display: grid;
+	grid-template-rows: auto minmax(0, 1fr) auto auto;
+	gap: 8px;
+	width: 100%;
+	height: 100%;
+	min-width: 0;
+	min-height: 0;
+	padding: 8px;
+}
+
+.mfn-hud {
+	display: grid;
+	grid-template-columns: 1fr 1.35fr 1fr;
+	gap: 7px;
+	min-width: 0;
+}
+
+.hud-chip,
+.panel,
+.transmission-panel {
+	box-sizing: border-box;
+	border: 1px solid var(--line);
+	background: var(--panel);
+	box-shadow: inset 0 0 18px rgba(89, 255, 123, 0.06), 0 0 18px rgba(0, 0, 0, 0.28);
+	backdrop-filter: blur(8px);
+}
+
+.hud-chip {
+	display: grid;
+	align-content: center;
+	gap: 1px;
+	min-width: 0;
+	padding: 7px 9px;
+	border-radius: 10px;
+}
+
+.hud-chip span,
+.panel-title,
+.inspector-row,
+.transmission-panel span,
+.controls-panel label {
+	color: var(--text-dim);
+	font-family: "Space Mono", ui-monospace, monospace;
+	font-size: clamp(0.64rem, 1.6vw, 0.78rem);
+	letter-spacing: 0.02em;
+	text-transform: uppercase;
+}
+
+.hud-chip strong {
+	overflow: hidden;
+	color: #f4fff9;
+	font-family: "Space Mono", ui-monospace, monospace;
+	font-size: clamp(0.86rem, 2.6vw, 1.1rem);
+	font-weight: 700;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.hud-chip.primary strong {
+	color: #69ff87;
+}
+
+.mfn-main {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	grid-template-rows: minmax(180px, 1.1fr) minmax(180px, 1fr) auto;
+	gap: 8px;
+	min-width: 0;
+	min-height: 0;
+}
+
+.panel {
+	min-width: 0;
+	min-height: 0;
+	border-radius: 13px;
+}
+
+.canvas-panel {
+	display: grid;
+	grid-template-rows: auto minmax(0, 1fr);
+	padding: 7px;
+}
+
+.panel-title {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	padding: 0 2px 6px;
+}
+
+.panel-title b,
+.inspector-row b {
+	color: #eefbf4;
+	font-weight: 700;
+}
+
+.mfn-canvas {
+	border-radius: 9px;
+	background: rgba(3, 10, 12, 0.62);
+}
+
+.inspector-panel {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 6px;
+	padding: 8px;
+}
+
+.inspector-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+}
+
+.bitstream {
+	box-sizing: border-box;
+	min-height: 74px;
+	max-height: 110px;
+	margin: 0;
+	overflow: auto;
+	padding: 8px;
+	border: 1px solid rgba(91, 247, 116, 0.22);
+	border-radius: 8px;
+	background: rgba(0, 0, 0, 0.35);
+	color: #c8feda;
+	font-family: "Space Mono", ui-monospace, monospace;
+	font-size: 0.72rem;
+	line-height: 1.22;
+}
+
+.mode-tabs,
+.controls-panel,
+.library-grid {
+	display: flex;
+	gap: 6px;
+	flex-wrap: wrap;
+}
+
+.mode-note {
+	min-height: 2.2em;
+	margin: 0;
+	color: var(--text-dim);
+	font-size: 0.77rem;
+	line-height: 1.35;
+}
+
+.mfn-console {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 8px;
+	min-height: 0;
+}
+
+.controls-panel,
+.library-panel,
+.compression-panel {
+	padding: 8px;
+}
+
+.controls-panel label {
+	display: grid;
+	grid-template-columns: auto minmax(54px, 1fr);
+	align-items: center;
+	gap: 5px;
+}
+
+select,
+button {
+	box-sizing: border-box;
+	min-height: 36px;
+	border: 1px solid rgba(198, 255, 211, 0.26);
+	border-radius: 9px;
+	background: rgba(10, 24, 27, 0.92);
+	color: #f4fff9;
+	font-family: "Space Mono", ui-monospace, monospace;
+}
+
+button {
+	cursor: pointer;
+	padding: 0 10px;
+}
+
+button:active,
+button.is-active {
+	border-color: #6cff83;
+	background: rgba(50, 123, 70, 0.5);
+}
+
+button:disabled {
+	cursor: wait;
+	opacity: 0.55;
+}
+
+.controls-panel.compact button {
+	flex: 1 1 auto;
+}
+
+.library-panel,
+.compression-panel {
+	display: grid;
+	gap: 6px;
+}
+
+.library-grid {
+	max-height: 88px;
+	overflow: auto;
+}
+
+.library-grid button {
+	min-width: 36px;
+	min-height: 32px;
+	padding: 0;
+}
+
+.pattern-list {
+	display: grid;
+	gap: 5px;
+	max-height: 92px;
+	overflow: auto;
+}
+
+.pattern-row,
+.empty-row {
+	display: grid;
+	grid-template-columns: auto auto minmax(0, 1fr);
+	gap: 8px;
+	align-items: center;
+	padding: 5px 7px;
+	border-radius: 7px;
+	background: rgba(0, 0, 0, 0.24);
+	font-family: "Space Mono", ui-monospace, monospace;
+	font-size: 0.72rem;
+}
+
+.empty-row {
+	display: block;
+	color: var(--text-dim);
+}
+
+.pattern-row code {
+	overflow: hidden;
+	color: #7effd2;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.transmission-panel {
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr);
+	align-items: center;
+	gap: 8px;
+	min-height: 34px;
+	padding: 5px 8px;
+	border-radius: 10px;
+}
+
+.transmission-panel code {
+	overflow: hidden;
+	color: #f7ffca;
+	font-family: "Space Mono", ui-monospace, monospace;
+	font-size: 0.72rem;
+	text-overflow: clip;
+	white-space: nowrap;
+}
+
+.start-overlay {
+	position: absolute;
+	inset: 0;
+	display: grid;
+	place-content: center;
+	justify-items: center;
+	gap: 10px;
+	padding: 24px;
+	background: linear-gradient(180deg, rgba(3, 8, 9, 0.32), rgba(3, 8, 9, 0.7));
+	text-align: center;
+}
+
+.start-mark {
+	display: grid;
+	place-items: center;
+	width: 64px;
+	aspect-ratio: 1;
+	border: 2px solid #6cff83;
+	border-radius: 50%;
+	background: rgba(0, 0, 0, 0.48);
+	color: #6cff83;
+	font-family: Orbitron, "Space Mono", monospace;
+	font-size: 1rem;
+	font-weight: 800;
+}
+
+.start-overlay h1 {
+	max-width: 13em;
+	margin: 0;
+	font-family: Orbitron, "Space Mono", monospace;
+	font-size: clamp(1.45rem, 7vw, 2.4rem);
+	line-height: 1.05;
+}
+
+.start-overlay p {
+	margin: 0;
+	color: #d6ece8;
+	font-family: "Space Mono", ui-monospace, monospace;
+	font-size: 0.9rem;
+}
+
+.start-overlay button {
+	min-width: 190px;
+	border-color: rgba(108, 255, 131, 0.6);
+	background: rgba(29, 89, 49, 0.76);
+}
+
+@media (min-width: 720px) {
+	.mfn-workbench {
+		gap: 10px;
+		padding: 10px;
+	}
+
+	.mfn-main {
+		grid-template-columns: minmax(250px, 0.95fr) minmax(260px, 1fr) minmax(210px, 0.55fr);
+		grid-template-rows: minmax(0, 1fr);
+	}
+
+	.mfn-console {
+		grid-template-columns: 1.25fr 1fr;
+	}
+
+	.library-panel,
+	.compression-panel {
+		min-height: 116px;
+	}
+}
+
+@media (max-height: 690px) {
+	.mfn-main {
+		grid-template-rows: minmax(145px, 1fr) minmax(145px, 1fr) auto;
+	}
+
+	.library-grid,
+	.pattern-list {
+		max-height: 58px;
+	}
+
+	.bitstream {
+		max-height: 76px;
+	}
+}
