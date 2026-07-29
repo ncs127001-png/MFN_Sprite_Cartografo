@@ -1,13 +1,1 @@
-node_modules/
-.opencode/node_modules/
-dist/
-.env
-.env.*
-!.env.example
-
-# Keep the scratch dir in the repo, but never commit its contents.
-.playabl/*
-!.playabl/tmp/
-.playabl/tmp/*
-!.playabl/tmp/.gitignore
-
+Nothing needs to be added to .gitignore since only a markdown file (README_DEV.md) was added, which is a source/config file and should not be ignored.
